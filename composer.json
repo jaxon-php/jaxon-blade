@@ -1,0 +1,27 @@
+{
+    "name": "jaxon-php/jaxon-blade",
+    "type": "library",
+    "description": "Jaxon view renderer for Blade templates",
+    "authors": [
+        {"name": "Thierry Feuzeu"}
+    ],
+    "homepage": "https://github.com/jaxon-php/jaxon-blade",
+    "license": "BSD-3-Clause",
+    "keywords": ["Jaxon", "Xajax", "Ajax", "PHP", "Template", "View", "Blade"],
+    "support": {
+        "issues": "https://github.com/jaxon-php/jaxon-blade/issues",
+        "source": "https://github.com/jaxon-php/jaxon-blade"
+    },
+    "require": {
+        "jaxon-php/jaxon-sentry": "~2.0",
+        "jenssegers/blade": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jaxon\\Blade\\": "src/"
+        },
+        "files": [
+            "src/start.php"
+        ]
+    }
+}
