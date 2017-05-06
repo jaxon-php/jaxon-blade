@@ -30,7 +30,7 @@ class View implements ViewInterface
         // View namespace
         $this->setCurrentNamespace($sNamespace);
 
-        // Render the template with https://github.com/jenssegers/blade
+        // Render the template
         $xRenderer = new \Jenssegers\Blade\Blade($this->sDirectory, __DIR__ . '/../cache');
         return trim($xRenderer->render($sViewName, $store->getViewData()), " \t\n");
     }
