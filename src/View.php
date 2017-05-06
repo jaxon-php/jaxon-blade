@@ -7,42 +7,7 @@ use Jaxon\Sentry\View\Store;
 
 class View implements ViewInterface
 {
-    /**
-     * The RainTpl template renderer
-     *
-     * @var RainTpl
-     */
-    protected $xRenderer = null;
-
-    /**
-     * The template directories
-     *
-     * @var array
-     */
-    protected $aDirectories = array();
-
-    /**
-     * The view constructor
-     * 
-     * @return
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Add a namespace to this view renderer
-     *
-     * @param string        $sNamespace         The namespace name
-     * @param string        $sDirectory         The namespace directory
-     * @param string        $sExtension         The extension to append to template names
-     *
-     * @return void
-     */
-    public function addNamespace($sNamespace, $sDirectory, $sExtension = '')
-    {
-        $this->aDirectories[$sNamespace] = array('path' => $sDirectory, 'ext' => $sExtension);
-    }
+    use \Jaxon\Sentry\View\Namespaces;
 
     /**
      * Render a view
@@ -61,16 +26,12 @@ class View implements ViewInterface
         {
             $sViewName = substr($sViewName, $nNsLen);
         }
-        // View extension
-        $sDirectory = '';
-        $sExtension = '';
-        if(key_exists($sNamespace, $this->aDirectories))
-        {
-            $sDirectory = rtrim($this->aDirectories[$sNamespace]['path'], '/') . '/';
-            $sExtension = '.' . ltrim($this->aDirectories[$sNamespace]['ext'], '.');
-        }
+
+        // View namespace
+        $this->setCurrentNamespace($sNamespace);
+
         // Render the template with https://github.com/jenssegers/blade
-        $xRenderer = new \Jenssegers\Blade\Blade($sDirectory, __DIR__ . '/../cache');
+        $xRenderer = new \Jenssegers\Blade\Blade($this->sDirectory, __DIR__ . '/../cache');
         return trim($xRenderer->render($sViewName, $store->getViewData()), " \t\n");
     }
 }
