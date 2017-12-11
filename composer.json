@@ -14,7 +14,7 @@
     },
     "require": {
         "jaxon-php/jaxon-sentry": "~2.0",
-        "jenssegers/blade": "dev-master"
+        "jenssegers/blade": "~1.1"
     },
     "provide": {
         "jaxon-php/jaxon-view-blade": "~2.0"
