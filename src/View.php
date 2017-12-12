@@ -7,7 +7,31 @@ use Jaxon\Sentry\View\Store;
 
 class View implements ViewInterface
 {
-    use \Jaxon\Sentry\View\Namespaces;
+    public function __construct()
+    {
+        $this->xRenderer = new \Jenssegers\Blade\Blade(__DIR__ . '/../views', __DIR__ . '/../cache');
+    }
+
+    /**
+     * Add a namespace to this view renderer
+     *
+     * @param string        $sNamespace         The namespace name
+     * @param string        $sDirectory         The namespace directory
+     * @param string        $sExtension         The extension to append to template names
+     *
+     * @return void
+     */
+    public function addNamespace($sNamespace, $sDirectory, $sExtension = '')
+    {
+        if(($sNamespace) && ($sDirectory))
+        {
+            $this->xRenderer->addNamespace($sNamespace, $sDirectory);
+            /*if(($sExtension) && $sExtension != 'blade.php')
+            {
+                $this->xRenderer->addExtension($sExtension, 'blade');
+            }*/
+        }
+    }
 
     /**
      * Render a view
@@ -20,18 +44,13 @@ class View implements ViewInterface
     {
         $sViewName = $store->getViewName();
         $sNamespace = $store->getNamespace();
-        // For this view renderer, the view name doesn't need to be prepended with the namespace.
-        $nNsLen = strlen($sNamespace) + 2;
-        if(substr($sViewName, 0, $nNsLen) == $sNamespace . '::')
+        // In this view renderer, the namespace must always be prepended to the view name.
+        if(substr($sViewName, 0, strlen($sNamespace) + 2) != $sNamespace . '::')
         {
-            $sViewName = substr($sViewName, $nNsLen);
+            $sViewName = $sNamespace . '::' . $sViewName;
         }
 
-        // View namespace
-        $this->setCurrentNamespace($sNamespace);
-
         // Render the template
-        $xRenderer = new \Jenssegers\Blade\Blade($this->sDirectory, __DIR__ . '/../cache');
-        return trim($xRenderer->render($sViewName, $store->getViewData()), " \t\n");
+        return trim($this->xRenderer->render($sViewName, $store->getViewData()), " \t\n");
     }
 }
