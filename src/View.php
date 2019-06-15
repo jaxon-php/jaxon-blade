@@ -2,14 +2,16 @@
 
 namespace Jaxon\Blade;
 
-use Jaxon\Sentry\Interfaces\View as ViewInterface;
-use Jaxon\Sentry\View\Store;
+use Jaxon\Contracts\View as ViewContract;
+use Jaxon\Ui\View\Store;
 
-class View implements ViewInterface
+use Jenssegers\Blade\Blade as Renderer;
+
+class View implements ViewContract
 {
     public function __construct()
     {
-        $this->xRenderer = new \Jenssegers\Blade\Blade(__DIR__ . '/../views', __DIR__ . '/../cache');
+        $this->xRenderer = new Renderer(__DIR__ . '/../views', __DIR__ . '/../cache');
     }
 
     /**
@@ -35,9 +37,9 @@ class View implements ViewInterface
 
     /**
      * Render a view
-     * 
+     *
      * @param Store         $store        A store populated with the view data
-     * 
+     *
      * @return string        The string representation of the view
      */
     public function render(Store $store)
