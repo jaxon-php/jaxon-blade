@@ -10,7 +10,7 @@ Install this package with Composer.
 
 ```json
 "require": {
-    "jaxon-php/jaxon-blade": "~2.0"
+    "jaxon-php/jaxon-blade": "^3.0"
 }
 ```
 
@@ -37,4 +37,4 @@ In the application classes, this is how to render a view in this directory.
     $this->view()->render('demo::/sub/dir/file');
 ```
 
-Read the [documentation](https://www.jaxon-php.org/docs/armada/views.html) to learn more about views in Jaxon applications.
+Read the [documentation](https://www.jaxon-php.org/docs/v3x/advanced/views.html) to learn more about views in Jaxon applications.
