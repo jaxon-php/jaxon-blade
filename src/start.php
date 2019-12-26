@@ -1,5 +1,5 @@
 <?php
 
-jaxon()->sentry()->addViewRenderer('blade', function () {
+jaxon()->di()->getViewManager()->addRenderer('blade', function () {
     return new Jaxon\Blade\View();
 });
