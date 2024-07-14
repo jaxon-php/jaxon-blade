@@ -17,28 +17,6 @@ class View implements ViewInterface
     private Blade $xRenderer;
 
     /**
-     * The constructor
-     */
-    public function __construct()
-    {
-        $this->xRenderer = new Blade(__DIR__ . '/../views', __DIR__ . '/../cache');
-
-        // Directives for Jaxon custom attributes
-        $this->xRenderer->directive('jxnHtml', function ($expression) {
-            return '<?php echo \Jaxon\attr()->html(' . $this->expr($expression) . '); ?>';
-        });
-        $this->xRenderer->directive('jxnShow', function ($expression) {
-            return '<?php echo \Jaxon\attr()->show(' . $this->expr($expression) . '); ?>';
-        });
-        $this->xRenderer->directive('jxnTarget', function ($expression) {
-            return '<?php echo \Jaxon\attr()->target(' . $expression . '); ?>';
-        });
-        $this->xRenderer->directive('jxnOn', function ($expression) {
-            return '<?php echo \Jaxon\attr()->on(' . $this->expr($expression) . '); ?>';
-        });
-    }
-
-    /**
      * Replace Jaxon functions with their full names
      *
      * @param string $expression The directive parameter
@@ -48,6 +26,39 @@ class View implements ViewInterface
     private function expr(string $expression)
     {
         return preg_replace('/([\(\s\,])(rq|jq|js|pm)\(/', '${1}\\Jaxon\\\${2}(', $expression);
+    }
+
+    /**
+     * The constructor
+     */
+    public function __construct()
+    {
+        $this->xRenderer = new Blade(__DIR__ . '/../views', __DIR__ . '/../cache');
+
+        // Directives for Jaxon custom attributes
+        $this->xRenderer->directive('jxnHtml', function($expression) {
+            return '<?php echo \Jaxon\attr()->html(' . $this->expr($expression) . '); ?>';
+        });
+        $this->xRenderer->directive('jxnShow', function($expression) {
+            return '<?php echo \Jaxon\attr()->show(' . $this->expr($expression) . '); ?>';
+        });
+        $this->xRenderer->directive('jxnTarget', function($expression) {
+            return '<?php echo \Jaxon\attr()->target(' . $expression . '); ?>';
+        });
+        $this->xRenderer->directive('jxnOn', function($expression) {
+            return '<?php echo \Jaxon\attr()->on(' . $this->expr($expression) . '); ?>';
+        });
+
+        // Directives for Jaxon Js and CSS codes
+        $this->xRenderer->directive('jxnCss', function() {
+            return '<?php echo \Jaxon\jaxon()->css(); ?>';
+        });
+        $this->xRenderer->directive('jxnJs', function() {
+            return '<?php echo \Jaxon\jaxon()->js(); ?>';
+        });
+        $this->xRenderer->directive('jxnScript', function($expression) {
+            return '<?php echo \Jaxon\jaxon()->script(' . $expression . '); ?>';
+        });
     }
 
     /**
