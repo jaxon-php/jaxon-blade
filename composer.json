@@ -13,11 +13,11 @@
         "source": "https://github.com/jaxon-php/jaxon-blade"
     },
     "require": {
-        "jaxon-php/jaxon-core": "v5.x-dev",
+        "jaxon-php/jaxon-core": "dev-main",
         "jenssegers/blade": "^1.4|^2.0"
     },
     "provide": {
-        "jaxon-php/jaxon-view-blade": "v5.x-dev"
+        "jaxon-php/jaxon-view-blade": "dev-main"
     },
     "autoload": {
         "psr-4": {
