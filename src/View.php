@@ -48,6 +48,9 @@ class View implements ViewInterface
         $this->xRenderer->directive('jxnClick', function($expression) {
             return '<?php echo \Jaxon\attr()->click(' . $this->expr($expression) . '); ?>';
         });
+        $this->xRenderer->directive('jxnEvent', function($expression) {
+            return '<?php echo \Jaxon\attr()->event(' . $this->expr($expression) . '); ?>';
+        });
         $this->xRenderer->directive('jxnTarget', function($expression) {
             return '<?php echo \Jaxon\attr()->target(' . $expression . '); ?>';
         });
