@@ -39,8 +39,8 @@ class View implements ViewInterface
         $this->xRenderer->directive('jxnHtml', function($expression) {
             return '<?php echo \Jaxon\attr()->html(' . $this->expr($expression) . '); ?>';
         });
-        $this->xRenderer->directive('jxnShow', function($expression) {
-            return '<?php echo \Jaxon\attr()->show(' . $this->expr($expression) . '); ?>';
+        $this->xRenderer->directive('jxnBind', function($expression) {
+            return '<?php echo \Jaxon\attr()->bind(' . $this->expr($expression) . '); ?>';
         });
         $this->xRenderer->directive('jxnOn', function($expression) {
             return '<?php echo \Jaxon\attr()->on(' . $this->expr($expression) . '); ?>';
