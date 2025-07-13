@@ -22,39 +22,18 @@ class View implements ViewInterface
     {
         $this->xRenderer = new Blade(__DIR__ . '/../views', __DIR__ . '/../cache');
 
-        // Directives for Jaxon custom attributes
-        $this->xRenderer->directive('jxnHtml', function($expression) {
-            return '<?php echo Jaxon\attr()->html(' . $expression . '); ?>';
-        });
-        $this->xRenderer->directive('jxnBind', function($expression) {
-            return '<?php echo Jaxon\attr()->bind(' . $expression . '); ?>';
-        });
-        $this->xRenderer->directive('jxnPagination', function($expression) {
-            return '<?php echo Jaxon\attr()->pagination(' . $expression . '); ?>';
-        });
-        $this->xRenderer->directive('jxnOn', function($expression) {
-            return '<?php echo Jaxon\attr()->on(' . $expression . '); ?>';
-        });
-        $this->xRenderer->directive('jxnClick', function($expression) {
-            return '<?php echo Jaxon\attr()->click(' . $expression . '); ?>';
-        });
-        $this->xRenderer->directive('jxnEvent', function($expression) {
-            return '<?php echo Jaxon\attr()->event(' . $expression . '); ?>';
-        });
-        $this->xRenderer->directive('jxnTarget', function($expression) {
-            return '<?php echo Jaxon\attr()->target(' . $expression . '); ?>';
-        });
-
         // Directives for Jaxon Js and CSS codes
-        $this->xRenderer->directive('jxnCss', function() {
-            return '<?php echo Jaxon\jaxon()->css(); ?>';
-        });
-        $this->xRenderer->directive('jxnJs', function() {
-            return '<?php echo Jaxon\jaxon()->js(); ?>';
-        });
-        $this->xRenderer->directive('jxnScript', function($expression) {
-            return '<?php echo Jaxon\jaxon()->script(' . $expression . '); ?>';
-        });
+        $this->xRenderer->directive('jxnCss', fn() => '<?= Jaxon\jaxon()->css(); ?>');
+        $this->xRenderer->directive('jxnJs', fn() => '<?= Jaxon\jaxon()->js(); ?>');
+        $this->xRenderer->directive('jxnScript', fn($expr) => "<?= Jaxon\jaxon()->script($expr); ?>");
+
+        // Directives for Jaxon custom attributes
+        $this->xRenderer->directive('jxnBind', fn($expr) => "<?= Jaxon\attr()->bind($expr); ?>");
+        $this->xRenderer->directive('jxnHtml', fn($expr) => "<?= Jaxon\attr()->html($expr); ?>");
+        $this->xRenderer->directive('jxnPagination', fn($expr) => "<?= Jaxon\attr()->pagination($expr); ?>");
+        $this->xRenderer->directive('jxnOn', fn($expr) => "<?= Jaxon\attr()->on($expr); ?>");
+        $this->xRenderer->directive('jxnClick', fn($expr) => "<?= Jaxon\attr()->click($expr); ?>");
+        $this->xRenderer->directive('jxnEvent', fn($expr) => "<?= Jaxon\Blade\setJxnEvent($expr); ?>");
     }
 
     /**
